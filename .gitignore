@@ -41,3 +41,11 @@ nb-configuration.xml
 
 # Plugin directory
 /.quarkus/cli/plugins/
+
+# Volume container Keycloacl/Postgres
+.docker/data
+/data
+./data
+
+# Arquivo secrets
+secret.properties
