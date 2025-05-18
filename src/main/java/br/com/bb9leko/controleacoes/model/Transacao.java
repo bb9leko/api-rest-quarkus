@@ -1,6 +1,5 @@
 package br.com.bb9leko.controleacoes.model;
 
-import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,7 +12,6 @@ public class Transacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @JsonbDateFormat("dd/MM/yyyy")
     private LocalDate dataEvento;
     private String ticket;
     private int quantidade;
@@ -26,12 +24,6 @@ public class Transacao {
     private String corretora;
 
     public Transacao() {
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void calcularValorTotal() {
-        this.valorTotal = BigDecimal.valueOf(this.valorUnitario * this.quantidade);
     }
 
     public long getId() {
@@ -96,6 +88,12 @@ public class Transacao {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void calcularValorTotal() {
+        this.valorTotal = BigDecimal.valueOf((this.valorUnitario * this.quantidade) + this.valorCorretagem + this.valorTaxasEmolumentos);
     }
 
     public String getCorretora() {

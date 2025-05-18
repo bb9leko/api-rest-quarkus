@@ -1,5 +1,7 @@
 package br.com.bb9leko.controleacoes.rest;
 
+import br.com.bb9leko.controleacoes.dto.TransacaoDTO;
+import br.com.bb9leko.controleacoes.model.Evento;
 import br.com.bb9leko.controleacoes.repository.TransacaoRepository;
 import br.com.bb9leko.controleacoes.model.Transacao;
 import br.com.bb9leko.analiseacoes.repository.AcoesRepository;
@@ -15,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
-import static io.quarkus.arc.ComponentsProvider.LOG;
 
 @Path("/transacao")
 public class TransacaoResource {
@@ -49,17 +49,18 @@ public class TransacaoResource {
     @Path("/insereTransacao")
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
-    public Response insereTransacao(Transacao transacao) {
-        LOG.info("Requisição recebida em /insereTransacao");
-        LOG.info("Data do Evento: " + transacao.getDataEvento());
-        LOG.info("Ticket: " + transacao.getTicket());
-        LOG.info("Quantidade: " + transacao.getQuantidade());
-        LOG.info("Valor da Corretagem: " + transacao.getValorCorretagem());
-        LOG.info("Valor das Taxas e Emolumentos: " + transacao.getValorTaxasEmolumentos());
-        LOG.info("Valor Unitário: " + transacao.getValorUnitario());
-        LOG.info("Valor Total: " + transacao.getValorTotal());
-        LOG.info("Compra ou Venda: " + transacao.getCompraOUVenda());
-        LOG.info("Corretora: " + transacao.getCorretora());
+    public Response insereTransacao(TransacaoDTO dto) {
+        Transacao transacao = new Transacao();
+        transacao.setDataEvento(dto.getDataEvento());
+        transacao.setTicket(dto.getTicket());
+        transacao.setQuantidade(dto.getQuantidade());
+        transacao.setValorCorretagem(dto.getValorCorretagem());
+        transacao.setValorTaxasEmolumentos(dto.getValorTaxasEmolumentos());
+        transacao.setValorUnitario(dto.getValorUnitario());
+        transacao.setCorretora(dto.getCorretora());
+        transacao.setCompraOUVenda(Evento.valueOf(dto.getCompraOUVenda())); // ajuste conforme seu enum
+
+        // valorTotal será calculado automaticamente pelo metodo @PrePersist/@PreUpdate
 
         transacaoRepository.persist(transacao);
         return Response.ok().build();
