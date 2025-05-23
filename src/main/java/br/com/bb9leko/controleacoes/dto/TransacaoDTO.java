@@ -1,6 +1,8 @@
 package br.com.bb9leko.controleacoes.dto;
 
 import jakarta.json.bind.annotation.JsonbDateFormat;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 
 import java.time.LocalDate;
 
@@ -13,8 +15,11 @@ public class TransacaoDTO {
     private double valorCorretagem;
     private double valorTaxasEmolumentos;
     private double valorUnitario;
+    @Enumerated(EnumType.STRING)
+    private String compraOUVenda;
     private String corretora;
-    private String compraOUVenda; // ou use o enum se preferir
+    @Enumerated(EnumType.STRING)
+    private String classificacaoAtivo;
 
     public LocalDate getDataEvento() {
         return dataEvento;
@@ -64,6 +69,14 @@ public class TransacaoDTO {
         this.valorUnitario = valorUnitario;
     }
 
+    public String getCompraOUVenda() {
+        return compraOUVenda;
+    }
+
+    public void setCompraOUVenda(String compraOUVenda) {
+        this.compraOUVenda = compraOUVenda;
+    }
+
     public String getCorretora() {
         return corretora;
     }
@@ -72,11 +85,11 @@ public class TransacaoDTO {
         this.corretora = corretora;
     }
 
-    public String getCompraOUVenda() {
-        return compraOUVenda;
+    public String getClassificacaoAtivo() {
+        return classificacaoAtivo;
     }
 
-    public void setCompraOUVenda(String compraOUVenda) {
-        this.compraOUVenda = compraOUVenda;
+    public void setClassificacaoAtivo(String classificacaoAtivo) {
+        this.classificacaoAtivo = classificacaoAtivo;
     }
 }

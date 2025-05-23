@@ -1,4 +1,4 @@
-package br.com.bb9leko;
+package br.com.bb9leko.fundamentals;
 
 import java.util.Arrays;
 import java.util.List;

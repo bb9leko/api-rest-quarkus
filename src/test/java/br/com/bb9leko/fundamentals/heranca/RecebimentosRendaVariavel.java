@@ -1,4 +1,4 @@
-package br.com.bb9leko.fundamentals;
+package br.com.bb9leko.fundamentals.heranca;
 
 public class RecebimentosRendaVariavel {
 

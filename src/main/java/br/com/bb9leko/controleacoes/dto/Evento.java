@@ -1,4 +1,4 @@
-package br.com.bb9leko.controleacoes.model;
+package br.com.bb9leko.controleacoes.dto;
 
 public enum Evento {
     COMPRA("compra"),

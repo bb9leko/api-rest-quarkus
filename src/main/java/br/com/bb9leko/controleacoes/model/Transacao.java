@@ -1,5 +1,7 @@
 package br.com.bb9leko.controleacoes.model;
 
+import br.com.bb9leko.controleacoes.dto.Evento;
+import br.com.bb9leko.controleacoes.dto.ClassificacaoAtivo;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,6 +24,8 @@ public class Transacao {
     @Enumerated(EnumType.STRING)
     private Evento compraOUVenda;
     private String corretora;
+    @Enumerated(EnumType.STRING)
+    private ClassificacaoAtivo classificacaoAtivo;
 
     public Transacao() {
     }
@@ -112,6 +116,14 @@ public class Transacao {
         this.compraOUVenda = compraOUVenda;
     }
 
+    public ClassificacaoAtivo getClassificacaoAtivo() {
+        return classificacaoAtivo;
+    }
+
+    public void setClassificacaoAtivo(ClassificacaoAtivo classificacaoAtivo) {
+        this.classificacaoAtivo = classificacaoAtivo;
+    }
+
     @Override
     public String toString() {
         return "Transacao{" +
@@ -124,6 +136,7 @@ public class Transacao {
                 ", valorTotal=" + valorTotal +
                 ", compraOUVenda=" + compraOUVenda +
                 ", corretora='" + corretora + '\'' +
+                ", classificacaoAtivo='" + classificacaoAtivo + '\'' +
                 '}';
     }
 }

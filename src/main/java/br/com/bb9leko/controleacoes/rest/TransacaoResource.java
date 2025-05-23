@@ -1,7 +1,8 @@
 package br.com.bb9leko.controleacoes.rest;
 
+import br.com.bb9leko.controleacoes.dto.ClassificacaoAtivo;
 import br.com.bb9leko.controleacoes.dto.TransacaoDTO;
-import br.com.bb9leko.controleacoes.model.Evento;
+import br.com.bb9leko.controleacoes.dto.Evento;
 import br.com.bb9leko.controleacoes.repository.TransacaoRepository;
 import br.com.bb9leko.controleacoes.model.Transacao;
 import br.com.bb9leko.analiseacoes.repository.AcoesRepository;
@@ -59,7 +60,7 @@ public class TransacaoResource {
         transacao.setValorUnitario(dto.getValorUnitario());
         transacao.setCorretora(dto.getCorretora());
         transacao.setCompraOUVenda(Evento.valueOf(dto.getCompraOUVenda())); // ajuste conforme seu enum
-
+        transacao.setClassificacaoAtivo(ClassificacaoAtivo.valueOf(dto.getClassificacaoAtivo()));
         // valorTotal será calculado automaticamente pelo metodo @PrePersist/@PreUpdate
 
         transacaoRepository.persist(transacao);

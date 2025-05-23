@@ -1,9 +1,8 @@
-/*package br.com.bb9leko;
+package br.com.bb9leko;
 
-import br.com.bb9leko.controleacoes.model.Evento;
+import br.com.bb9leko.controleacoes.dto.Evento;
 import br.com.bb9leko.controleacoes.model.Transacao;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
@@ -23,7 +22,7 @@ public class TestesTransacao {
 
 
         Transacao transacao2 = new Transacao();
-        transacao2.setDataEvento(new LocalDate(2024, 10, 23));
+        transacao2.setDataEvento(LocalDate.of(2024, 10, 23));
         transacao2.setCompraOUVenda(Evento.VENDA);
         transacao2.setTicket("TAEE11");
         transacao2.setQuantidade(100);
@@ -55,4 +54,3 @@ public class TestesTransacao {
 
     }
 }
-*/
