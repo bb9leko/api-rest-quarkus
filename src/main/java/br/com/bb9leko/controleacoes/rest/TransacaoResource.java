@@ -25,25 +25,12 @@ public class TransacaoResource {
     @Inject
     TransacaoRepository transacaoRepository;
 
-    @Inject
-    AcoesRepository ticketsRepository;
-
-    @Inject
-    ApiConsumer apiConsumer;
-
-    @Inject
-    DataConvert conversor;
-
     @GET
-    @Path("/listaAcoesTransacoes")
+    @Path("/listaTransacoes")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listaAcoesTransacoes() {
-        List<String> tickets = transacaoRepository.listAll().stream()
-                .map(Transacao::getTicket)
-                .collect(Collectors.toList());
-        Map<String, List<String>> response = new HashMap<>();
-        response.put("acoesCustodiadas", tickets);
-        return Response.ok(response).build();
+    public Response listarTodasTransacoes() {
+        List<Transacao> transacoes = transacaoRepository.listAll();
+        return Response.ok(transacoes).build();
     }
 
     @PUT
