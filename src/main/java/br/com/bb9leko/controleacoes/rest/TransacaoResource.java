@@ -22,7 +22,7 @@ public class TransacaoResource {
 
     @GET
     @Path("/listaTransacoes")
-    public List<TransacaoDTO> listarTodasTransacoes() {
+    public List<TransacaoDTO> listarTransacoes() {
         return transacaoRepository.listAll()
                 .stream()
                 .map(transacao -> {
