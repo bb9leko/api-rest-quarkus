@@ -1,5 +1,6 @@
 package br.com.bb9leko.controleacoes.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.bind.annotation.JsonbDateFormat;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -8,17 +9,26 @@ import java.time.LocalDate;
 
 public class TransacaoDTO {
 
+    @JsonProperty("dataEvento")
     @JsonbDateFormat("dd/MM/yyyy")
     private LocalDate dataEvento;
+    @JsonProperty("ticket")
     private String ticket;
+    @JsonProperty("quantidade")
     private int quantidade;
+    @JsonProperty("valorCorretagem")
     private double valorCorretagem;
+    @JsonProperty("valorTaxasEmolumentos")
     private double valorTaxasEmolumentos;
+    @JsonProperty("valorUnitario")
     private double valorUnitario;
-    @Enumerated(EnumType.STRING)
+    @JsonProperty("valorTotal")
+    private double valorTotal;
+    @JsonProperty("compraOUVenda")
     private String compraOUVenda;
+    @JsonProperty("corretora")
     private String corretora;
-    @Enumerated(EnumType.STRING)
+    @JsonProperty("classificacaoAtivo")
     private String classificacaoAtivo;
 
     public LocalDate getDataEvento() {
@@ -67,6 +77,14 @@ public class TransacaoDTO {
 
     public void setValorUnitario(double valorUnitario) {
         this.valorUnitario = valorUnitario;
+    }
+
+    public double getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(double valorTotal) {
+        this.valorTotal = valorTotal;
     }
 
     public String getCompraOUVenda() {

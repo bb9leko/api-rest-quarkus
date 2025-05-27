@@ -12,6 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/transacao")
 public class TransacaoResource {
@@ -21,14 +22,29 @@ public class TransacaoResource {
 
     @GET
     @Path("/listaTransacoes")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response listarTodasTransacoes() {
-        List<Transacao> transacoes = transacaoRepository.listAll();
-        return Response.ok(transacoes).build();
+    public List<TransacaoDTO> listarTodasTransacoes() {
+        return transacaoRepository.listAll()
+                .stream()
+                .map(transacao -> {
+                    TransacaoDTO dto = new TransacaoDTO();
+                    dto.setDataEvento(transacao.getDataEvento());
+                    dto.setTicket(transacao.getTicket());
+                    dto.setQuantidade(transacao.getQuantidade());
+                    dto.setValorCorretagem(transacao.getValorCorretagem());
+                    dto.setValorTaxasEmolumentos(transacao.getValorTaxasEmolumentos());
+                    dto.setValorUnitario(transacao.getValorUnitario());
+                    dto.setValorTotal(transacao.getValorTotal().doubleValue());
+                    dto.setCompraOUVenda(transacao.getCompraOUVenda().name());
+                    dto.setCorretora(transacao.getCorretora());
+                    dto.setClassificacaoAtivo(transacao.getClassificacaoAtivo().name());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
 
     @POST
     @Path("/insereTransacao")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Transactional
     public Response insereTransacao(TransacaoDTO dto) {
