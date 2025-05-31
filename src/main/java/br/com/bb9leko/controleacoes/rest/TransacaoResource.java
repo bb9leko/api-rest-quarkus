@@ -28,15 +28,19 @@ public class TransacaoResource {
                 .map(transacao -> {
                     TransacaoDTO dto = new TransacaoDTO();
                     dto.setDataEvento(transacao.getDataEvento());
-                    dto.setTicket(transacao.getTicket());
-                    dto.setQuantidade(transacao.getQuantidade());
-                    dto.setValorCorretagem(transacao.getValorCorretagem());
-                    dto.setValorTaxasEmolumentos(transacao.getValorTaxasEmolumentos());
-                    dto.setValorUnitario(transacao.getValorUnitario());
-                    dto.setValorTotal(transacao.getValorTotal().doubleValue());
-                    dto.setCompraOUVenda(transacao.getCompraOUVenda().name());
                     dto.setCorretora(transacao.getCorretora());
                     dto.setClassificacaoAtivo(transacao.getClassificacaoAtivo().name());
+                    dto.setTicket(transacao.getTicket());
+                    dto.setCompraOUVenda(transacao.getCompraOUVenda().name());
+                    dto.setQuantidade(transacao.getQuantidade());
+                    dto.setValorUnitario(transacao.getValorUnitario());
+                    dto.setValorTotal(transacao.getValorTotal());
+                    dto.setValorTaxaLiquidacao(transacao.getValorTaxaLiquidacao());
+                    dto.setValorTaxasEmolumentos(transacao.getValorTaxasEmolumentos());
+                    dto.setValorImpostos(transacao.getValorImpostos());
+                    dto.setOutrosValoresCobrados(transacao.getOutrosValoresCobrados());
+                    dto.setValorCorretagem(transacao.getValorCorretagem());
+                    dto.setValorTotalComCustosEDespesas(transacao.getValorTotalComCustosEDespesas());
                     return dto;
                 })
                 .collect(Collectors.toList());
@@ -50,20 +54,20 @@ public class TransacaoResource {
     public Response insereTransacao(TransacaoDTO dto) {
         Transacao transacao = new Transacao();
         transacao.setDataEvento(dto.getDataEvento());
-        transacao.setTicket(dto.getTicket());
-        transacao.setQuantidade(dto.getQuantidade());
-        transacao.setValorCorretagem(dto.getValorCorretagem());
-        transacao.setValorTaxasEmolumentos(dto.getValorTaxasEmolumentos());
-        transacao.setValorUnitario(dto.getValorUnitario());
         transacao.setCorretora(dto.getCorretora());
-        transacao.setCompraOUVenda(Evento.valueOf(dto.getCompraOUVenda())); // ajuste conforme seu enum
         transacao.setClassificacaoAtivo(ClassificacaoAtivo.valueOf(dto.getClassificacaoAtivo()));
-        // valorTotal será calculado automaticamente pelo metodo @PrePersist/@PreUpdate
-
+        transacao.setTicket(dto.getTicket());
+        transacao.setCompraOUVenda(Evento.valueOf(dto.getCompraOUVenda())); // ajuste conforme seu enum
+        transacao.setQuantidade(dto.getQuantidade());
+        transacao.setValorUnitario(dto.getValorUnitario());
+        transacao.setValorTaxaLiquidacao(dto.getValorTaxaLiquidacao());
+        transacao.setValorTaxasEmolumentos(dto.getValorTaxasEmolumentos());
+        transacao.setValorImpostos(dto.getValorImpostos());
+        transacao.setOutrosValoresCobrados(dto.getOutrosValoresCobrados());
+        transacao.setValorCorretagem(dto.getValorCorretagem());
+        // valorTotal e valorTotalComTaxasEDespesas será calculado automaticamente pelo metodo @PrePersist/@PreUpdate
         transacaoRepository.persist(transacao);
         return Response.ok().build();
     }
-
-
 
 }

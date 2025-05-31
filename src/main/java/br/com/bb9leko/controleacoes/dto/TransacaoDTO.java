@@ -2,9 +2,8 @@ package br.com.bb9leko.controleacoes.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.json.bind.annotation.JsonbDateFormat;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class TransacaoDTO {
@@ -12,24 +11,45 @@ public class TransacaoDTO {
     @JsonProperty("dataEvento")
     @JsonbDateFormat("dd/MM/yyyy")
     private LocalDate dataEvento;
-    @JsonProperty("ticket")
-    private String ticket;
-    @JsonProperty("quantidade")
-    private int quantidade;
-    @JsonProperty("valorCorretagem")
-    private double valorCorretagem;
-    @JsonProperty("valorTaxasEmolumentos")
-    private double valorTaxasEmolumentos;
-    @JsonProperty("valorUnitario")
-    private double valorUnitario;
-    @JsonProperty("valorTotal")
-    private double valorTotal;
-    @JsonProperty("compraOUVenda")
-    private String compraOUVenda;
+
     @JsonProperty("corretora")
     private String corretora;
+
     @JsonProperty("classificacaoAtivo")
     private String classificacaoAtivo;
+
+    @JsonProperty("ticket")
+    private String ticket;
+
+    @JsonProperty("compraOUVenda")
+    private String compraOUVenda;
+
+    @JsonProperty("quantidade")
+    private int quantidade;
+
+    @JsonProperty("valorUnitario")
+    private BigDecimal valorUnitario;
+
+    @JsonProperty("valorTotal")
+    private BigDecimal valorTotal;
+
+    @JsonProperty("valorTaxaLiquidacao")
+    private BigDecimal valorTaxaLiquidacao;
+
+    @JsonProperty("valorTaxasEmolumentos")
+    private BigDecimal valorTaxasEmolumentos;
+
+    @JsonProperty("valorImpostos")
+    private BigDecimal valorImpostos;
+
+    @JsonProperty("outrosValoreesCobrados")
+    private BigDecimal outrosValoresCobrados;
+
+    @JsonProperty("valorCorretagem")
+    private BigDecimal valorCorretagem;
+
+    @JsonProperty("valorTotalComCustosEDespesas")
+    private BigDecimal valorTotalComCustosEDespesas;
 
     public LocalDate getDataEvento() {
         return dataEvento;
@@ -37,62 +57,6 @@ public class TransacaoDTO {
 
     public void setDataEvento(LocalDate dataEvento) {
         this.dataEvento = dataEvento;
-    }
-
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
-    }
-
-    public double getValorCorretagem() {
-        return valorCorretagem;
-    }
-
-    public void setValorCorretagem(double valorCorretagem) {
-        this.valorCorretagem = valorCorretagem;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public double getValorTaxasEmolumentos() {
-        return valorTaxasEmolumentos;
-    }
-
-    public void setValorTaxasEmolumentos(double valorTaxasEmolumentos) {
-        this.valorTaxasEmolumentos = valorTaxasEmolumentos;
-    }
-
-    public double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(double valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public String getCompraOUVenda() {
-        return compraOUVenda;
-    }
-
-    public void setCompraOUVenda(String compraOUVenda) {
-        this.compraOUVenda = compraOUVenda;
     }
 
     public String getCorretora() {
@@ -109,5 +73,93 @@ public class TransacaoDTO {
 
     public void setClassificacaoAtivo(String classificacaoAtivo) {
         this.classificacaoAtivo = classificacaoAtivo;
+    }
+
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
+    public String getCompraOUVenda() {
+        return compraOUVenda;
+    }
+
+    public void setCompraOUVenda(String compraOUVenda) {
+        this.compraOUVenda = compraOUVenda;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public BigDecimal getValorTaxaLiquidacao() {
+        return valorTaxaLiquidacao;
+    }
+
+    public void setValorTaxaLiquidacao(BigDecimal valorTaxaLiquidacao) {
+        this.valorTaxaLiquidacao = valorTaxaLiquidacao;
+    }
+
+    public BigDecimal getValorTaxasEmolumentos() {
+        return valorTaxasEmolumentos;
+    }
+
+    public void setValorTaxasEmolumentos(BigDecimal valorTaxasEmolumentos) {
+        this.valorTaxasEmolumentos = valorTaxasEmolumentos;
+    }
+
+    public BigDecimal getValorImpostos() {
+        return valorImpostos;
+    }
+
+    public void setValorImpostos(BigDecimal valorImpostos) {
+        this.valorImpostos = valorImpostos;
+    }
+
+    public BigDecimal getOutrosValoresCobrados() {
+        return outrosValoresCobrados;
+    }
+
+    public void setOutrosValoresCobrados(BigDecimal outrosValoresCobrados) {
+        this.outrosValoresCobrados = outrosValoresCobrados;
+    }
+
+    public BigDecimal getValorCorretagem() {
+        return valorCorretagem;
+    }
+
+    public void setValorCorretagem(BigDecimal valorCorretagem) {
+        this.valorCorretagem = valorCorretagem;
+    }
+
+    public BigDecimal getValorTotalComCustosEDespesas() {
+        return valorTotalComCustosEDespesas;
+    }
+
+    public void setValorTotalComCustosEDespesas(BigDecimal valorTotalComCustosEDespesas) {
+        this.valorTotalComCustosEDespesas = valorTotalComCustosEDespesas;
     }
 }

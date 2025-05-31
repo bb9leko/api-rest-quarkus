@@ -15,17 +15,35 @@ public class Transacao {
     private long id;
 
     private LocalDate dataEvento;
-    private String ticket;
-    private int quantidade;
-    private double valorCorretagem;
-    private double valorTaxasEmolumentos;
-    private double valorUnitario;
-    private BigDecimal valorTotal;
-    @Enumerated(EnumType.STRING)
-    private Evento compraOUVenda;
+
     private String corretora;
+
     @Enumerated(EnumType.STRING)
     private ClassificacaoAtivo classificacaoAtivo;
+
+    private String ticket;
+
+    @Enumerated(EnumType.STRING)
+    private Evento compraOUVenda;
+
+    private int quantidade;
+
+    private BigDecimal valorUnitario;
+
+    private BigDecimal valorTotal;
+
+    private BigDecimal valorTaxaLiquidacao;
+
+    private BigDecimal valorTaxasEmolumentos;
+
+    private BigDecimal valorImpostos;
+
+    private BigDecimal outrosValoresCobrados;
+
+    //Ou Taxa Operacional
+    private BigDecimal valorCorretagem;
+
+    private BigDecimal valorTotalComCustosEDespesas;
 
     public Transacao() {
     }
@@ -46,74 +64,12 @@ public class Transacao {
         this.dataEvento = dataEvento;
     }
 
-    public String getTicket() {
-        return ticket;
-    }
-
-    public void setTicket(String ticket) {
-        this.ticket = ticket;
-    }
-
-    public double getValorCorretagem() {
-        return valorCorretagem;
-    }
-
-    public void setValorCorretagem(double valorCorretagem) {
-        this.valorCorretagem = valorCorretagem;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public double getValorTaxasEmolumentos() {
-        return valorTaxasEmolumentos;
-    }
-
-    public void setValorTaxasEmolumentos(double valorTaxasEmolumentos) {
-        this.valorTaxasEmolumentos = valorTaxasEmolumentos;
-    }
-
-    public double getValorUnitario() {
-        return valorUnitario;
-    }
-
-    public void setValorUnitario(double valorUnitario) {
-        this.valorUnitario = valorUnitario;
-    }
-
-    public BigDecimal getValorTotal() {
-        return BigDecimal.valueOf(this.valorUnitario * this.quantidade);
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void calcularValorTotal() {
-        this.valorTotal = BigDecimal.valueOf((this.valorUnitario * this.quantidade) + this.valorCorretagem + this.valorTaxasEmolumentos);
-    }
-
     public String getCorretora() {
         return corretora;
     }
 
     public void setCorretora(String corretora) {
         this.corretora = corretora;
-    }
-
-    public Evento getCompraOUVenda() {
-        return compraOUVenda;
-    }
-
-    public void setCompraOUVenda(Evento compraOUVenda) {
-        this.compraOUVenda = compraOUVenda;
     }
 
     public ClassificacaoAtivo getClassificacaoAtivo() {
@@ -124,19 +80,132 @@ public class Transacao {
         this.classificacaoAtivo = classificacaoAtivo;
     }
 
+    public String getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(String ticket) {
+        this.ticket = ticket;
+    }
+
+    public Evento getCompraOUVenda() {
+        return compraOUVenda;
+    }
+
+    public void setCompraOUVenda(Evento compraOUVenda) {
+        this.compraOUVenda = compraOUVenda;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getValorUnitario() {
+        return valorUnitario;
+    }
+
+    public void setValorUnitario(BigDecimal valorUnitario) {
+        this.valorUnitario = valorUnitario;
+    }
+
+    public BigDecimal getValorTotal() {
+        return this.valorUnitario.multiply(BigDecimal.valueOf(this.quantidade));
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public BigDecimal getValorTaxaLiquidacao() {
+        return valorTaxaLiquidacao;
+    }
+
+    public void setValorTaxaLiquidacao(BigDecimal valorTaxaLiquidacao) {
+        this.valorTaxaLiquidacao = valorTaxaLiquidacao;
+    }
+
+    public BigDecimal getValorTaxasEmolumentos() {
+        return valorTaxasEmolumentos;
+    }
+
+    public void setValorTaxasEmolumentos(BigDecimal valorTaxasEmolumentos) {
+        this.valorTaxasEmolumentos = valorTaxasEmolumentos;
+    }
+
+    public BigDecimal getValorImpostos() {
+        return valorImpostos;
+    }
+
+    public void setValorImpostos(BigDecimal valorImpostos) {
+        this.valorImpostos = valorImpostos;
+    }
+
+    public BigDecimal getOutrosValoresCobrados() {
+        return outrosValoresCobrados;
+    }
+
+    public void setOutrosValoresCobrados(BigDecimal outrosValoresCobrados) {
+        this.outrosValoresCobrados = outrosValoresCobrados;
+    }
+
+    public BigDecimal getValorCorretagem() {
+        return valorCorretagem;
+    }
+
+    public void setValorCorretagem(BigDecimal valorCorretagem) {
+        this.valorCorretagem = valorCorretagem;
+    }
+
+    public BigDecimal getValorTotalComCustosEDespesas() {
+        return this.valorTotalComCustosEDespesas = this.valorUnitario.multiply(BigDecimal.valueOf(this.quantidade))
+                .add(this.valorTaxaLiquidacao != null ? this.valorTaxaLiquidacao : BigDecimal.ZERO)
+                .add(this.valorTaxasEmolumentos != null ? this.valorTaxasEmolumentos : BigDecimal.ZERO)
+                .add(this.valorImpostos != null ? this.valorImpostos : BigDecimal.ZERO)
+                .add(this.outrosValoresCobrados != null ? this.outrosValoresCobrados : BigDecimal.ZERO)
+                .add(this.valorCorretagem != null ? this.valorCorretagem : BigDecimal.ZERO);
+    }
+
+    public void setValorTotalComCustosEDespesas(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    @PrePersist
+    @PreUpdate
+    private void calcularValorTotalComCustosEDespesas() {
+        this.valorTotal = this.valorUnitario.multiply(BigDecimal.valueOf(this.quantidade));
+
+        BigDecimal total = this.valorTotal
+                .add(this.valorTaxaLiquidacao != null ? this.valorTaxaLiquidacao : BigDecimal.ZERO)
+                .add(this.valorTaxasEmolumentos != null ? this.valorTaxasEmolumentos : BigDecimal.ZERO)
+                .add(this.valorImpostos != null ? this.valorImpostos : BigDecimal.ZERO)
+                .add(this.outrosValoresCobrados != null ? this.outrosValoresCobrados : BigDecimal.ZERO)
+                .add(this.valorCorretagem != null ? this.valorCorretagem : BigDecimal.ZERO);
+
+        this.valorTotalComCustosEDespesas = total;
+    }
+
     @Override
     public String toString() {
         return "Transacao{" +
-                "dataEvento=" + dataEvento +
+                "id=" + id +
+                ", dataEvento=" + dataEvento +
+                ", corretora='" + corretora + '\'' +
+                ", classificacaoAtivo=" + classificacaoAtivo +
                 ", ticket='" + ticket + '\'' +
+                ", compraOUVenda=" + compraOUVenda +
                 ", quantidade=" + quantidade +
-                ", valorCorretagem=" + valorCorretagem +
-                ", valorTaxasEmolumentos=" + valorTaxasEmolumentos +
                 ", valorUnitario=" + valorUnitario +
                 ", valorTotal=" + valorTotal +
-                ", compraOUVenda=" + compraOUVenda +
-                ", corretora='" + corretora + '\'' +
-                ", classificacaoAtivo='" + classificacaoAtivo + '\'' +
+                ", valorTaxaLiquidacao=" + valorTaxaLiquidacao +
+                ", valorTaxasEmolumentos=" + valorTaxasEmolumentos +
+                ", valorImpostos=" + valorImpostos +
+                ", outrosValoresCobrados=" + outrosValoresCobrados +
+                ", valorCorretagem=" + valorCorretagem +
+                ", valorTotalComCustosEDespesas=" + valorTotalComCustosEDespesas +
                 '}';
     }
 }
